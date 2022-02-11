@@ -31,6 +31,7 @@ export default function Management() {
   
       return (
         <List
+        style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }}
         sx={{  bgcolor: 'background.paper' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -40,7 +41,7 @@ export default function Management() {
           </ListSubheader>
         }
       >
-        <Link to="/balance">
+        <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/balance">
         <ListItemButton>
           <ListItemIcon>
             <AccountBalanceIcon />
@@ -50,7 +51,7 @@ export default function Management() {
         </ListItemButton>
         </Link>
 
-        <Link to="/transaction-history">
+        <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/transaction-history">
         <ListItemButton>
           <ListItemIcon>
             <HistoryIcon />
@@ -59,7 +60,7 @@ export default function Management() {
         </ListItemButton>
         </Link>
 
-        <Link to="/breadcoin-transfer">
+        <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/breadcoin-transfer">
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>
             <SendToMobileIcon />
@@ -79,7 +80,7 @@ export default function Management() {
           </List>
         </Collapse> */}
         
-         <Link to="/selling-points">
+         <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/selling-points">
         <ListItemButton>
           <ListItemIcon>
             <LocationOnIcon />
@@ -95,7 +96,7 @@ export default function Management() {
           <ListItemText primary="Breadcoin Shop" />
         </ListItemButton>
 
-        <Link to="/edit-profile">
+        <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/edit-profile">
         <ListItemButton>
           <ListItemIcon>
             <SettingsIcon />
@@ -104,7 +105,7 @@ export default function Management() {
         </ListItemButton>
         </Link>
 
-        <Link to="/regulations">
+        <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/regulations">
         <ListItemButton>
           <ListItemIcon>
             <AssignmentIcon />
