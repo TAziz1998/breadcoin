@@ -26,7 +26,7 @@ function App() {
       : (
       <Router> 
         <Routes>
-          <Route path = "/" element={<SignIn/>}/>
+          <Route path = "/sign-in" element={<SignIn/>}/>
           <Route path = "/sign-up" element={<HorizontalLinearStepper/>}/>
         </Routes>
       </Router>
