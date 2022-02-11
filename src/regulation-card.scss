@@ -1,0 +1,19 @@
+.pdf-logo-wrapper {
+    max-width: 150px;
+    max-height: 150px;
+    margin: auto;
+    .MuiCardMedia-img{
+        margin: auto;
+        width: 60%;
+        height: 60%;   
+    }
+}
+
+// .MuiPaper-root.MuiPaper-elevation {
+//     margin: 10px;
+// }
+
+
+.MuiTypography-h5.MuiCardHeader-title {
+    font-size: 18px;
+}

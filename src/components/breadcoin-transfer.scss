@@ -1,0 +1,26 @@
+.breadcoin-transfer-container {
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    align-items: center;
+    text-align: center;
+}
+
+.breadcoin-transfer-wrapper {
+    width: 400px;
+    .breadcoin-transfer-input {
+        // width: 40%;  
+    }
+    .breadcoin-transfer-button{
+        width: 255px;
+        margin-top: 8px;
+    }
+    h2 {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    p {
+        font-size: 14px;
+    }
+}
+

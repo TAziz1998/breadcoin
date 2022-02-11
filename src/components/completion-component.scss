@@ -1,0 +1,19 @@
+.completion-component-container {
+    display: flex;
+    justify-content: center;
+    height: 385px;
+    align-items: center;
+    text-align: center;
+}
+
+.completion-component-wrapper {
+    width: 40%;
+    h2 {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    p {
+        font-size: 14px;
+    }
+}
+

@@ -1,0 +1,105 @@
+.edit-profile-container-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    align-items: center;
+    .edit-profile-flex-view {
+        width: 100%;
+    }
+}
+
+.edit-profile-container {
+    // width: 100%;
+    // height: auto;
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+
+    .profile-header-title {
+        text-align: center;
+        font-size: 21px;
+        
+    }
+    .MuiBox-root {
+        // width:100%;
+    }
+
+    .edit-profile-input-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 80%;
+        margin: auto;
+        justify-content: space-between;
+
+        h4{
+            width: 100%;
+            font-weight: 500;
+        }
+        .edit-profile-credentials {
+            width: 48%;
+            .MuiTextField-root.edit-profile-input {
+                margin-top: 20px;
+                width: 100%;
+            }
+        }
+        .edit-profile-personal-info {
+            width: 48%;
+            .MuiTextField-root.edit-profile-input {
+                margin-top: 20px;
+                width: 100%;
+            }
+            .edit-profile-date-picker {
+                margin-top: 20px !important;
+                width: 100%;
+            }
+        }
+        .edit-profile-agreement-switch-left {
+            width: 46%;
+            padding-left: 10px;
+            .edit-profile-switch {
+                margin-top: 5px;
+            }
+            .MuiFormControlLabel-label {
+                margin-top: 5px;
+                font-size: 15px;
+            }
+        }
+        .edit-profile-agreement-switch-right {
+            width: 46%;
+            padding-left: 10px;
+            .edit-profile-switch {
+                margin-top: 5px;
+            }
+            .MuiFormControlLabel-label {
+                margin-top: 5px;
+                font-size: 15px;
+            }
+        }
+    }
+    .edit-profile-submit-button {
+        width: 100%;
+        // margin-left: 20px;
+        margin-top: 30px !important;
+    }
+
+    // .profile-header-title {
+    //     width:50%;
+    //     margin-bottom: 20px;
+    //     margin:auto;
+    // }
+    // .profile-input-wrapper {
+    //     width:50%;
+    //     margin:auto;
+    //     .login-input, .MuiOutlinedInput-input.MuiInputBase-input, .MuiFormControl-root.MuiTextField-root {
+    //         width:100%;
+    //     }
+    //     .login-button {
+    //         width:100%;
+    //         margin: 8px;
+    //     }
+    // }
+}
