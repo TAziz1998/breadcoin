@@ -21,10 +21,12 @@ import {
   Route,
   Link,
   useParams,
-  useRouteMatch
+  useRouteMatch,
+  useNavigate
 } from "react-router-dom";
 
 export default function SignIn() {
+   let navigate = useNavigate();
     const { state, handleChange } = useForm()
     const dispatch = useDispatch()
     const token = useSelector((state) => state.user.token)
@@ -36,6 +38,7 @@ export default function SignIn() {
         event.preventDefault()
         dispatch(signIn(state.username, state.password, token))
         setIsLoading(false);
+        navigate('/balance')
     }
 
   return (
