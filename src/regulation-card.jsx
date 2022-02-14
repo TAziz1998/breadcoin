@@ -46,7 +46,7 @@ export default function RegulationCard() {
   };
 
   return (
-    <Card sx={{ maxWidth: 300, maxHeight: 440, marginTop: '15px' }}>
+    <Card sx={{ maxWidth: 300, maxHeight: 440, marginBottom: '10px' }}>
       <CardHeader
         // avatar={
         //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

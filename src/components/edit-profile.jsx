@@ -97,12 +97,13 @@ export default function EditProfile({ userData, userDetails }) {
           <div className="profile-header-title">
             <h4>Profile settings</h4>
           </div>
-          <div className="edit-profile-input-container">
+          <div className="edit-profile-input-container-left">
             <h4>Personal information</h4>
             <div className="edit-profile-personal-info">
               <div>
                 <TextField
                   name={'firstName'}
+                  fullWidth
                   type={'text'}
                   value={state.firstName}
                   onChange={handleChange}
@@ -116,6 +117,7 @@ export default function EditProfile({ userData, userDetails }) {
               <div>
                 <TextField
                   name={'surname'}
+                  fullWidth
                   type={'text'}
                   value={state.surname}
                   onChange={handleChange}
@@ -139,6 +141,7 @@ export default function EditProfile({ userData, userDetails }) {
                     }}
                     renderInput={(params) => (
                       <TextField
+                      fullWidth
                         className="edit-profile-date-picker"
                         size="small"
                         {...params}
@@ -152,6 +155,7 @@ export default function EditProfile({ userData, userDetails }) {
               <div>
                 <TextField
                   name={'password'}
+                  fullWidth
                   type={'password'}
                   value={state.password}
                   onChange={handleChange}
@@ -166,6 +170,7 @@ export default function EditProfile({ userData, userDetails }) {
                 <TextField
                   name={'email'}
                   type={'text'}
+                  fullWidth
                   value={state.email}
                   onChange={handleChange}
                   size="small"
@@ -178,6 +183,7 @@ export default function EditProfile({ userData, userDetails }) {
               <div>
                 <TextField
                   name={'phoneNumber'}
+                  fullWidth
                   type={'text'}
                   value={state.phoneNumber}
                   onChange={handleChange}

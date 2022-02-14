@@ -74,6 +74,7 @@ export default function Navbar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    dispatch(signOut(state.username, state.password, token))
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -83,6 +84,7 @@ export default function Navbar() {
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
+      className="navbar-menu"
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -99,6 +101,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Sign out</MenuItem>
     </Menu>
   );
 
