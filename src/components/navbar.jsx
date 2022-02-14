@@ -74,7 +74,6 @@ export default function Navbar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    dispatch(signOut(state.username, state.password, token))
   };
 
   const handleMobileMenuOpen = (event) => {
