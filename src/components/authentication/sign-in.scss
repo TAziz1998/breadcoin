@@ -4,6 +4,16 @@
     height: 750px;
     align-items: center;
     h2 {
+        // margin-top: 20px;
         text-align: center;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    .sign-in-input {
+        width: 100% !important;
+    }
+    .link {
+        text-decoration: none;
+        color: #1976d2;
     }
 }

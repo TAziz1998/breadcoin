@@ -5,10 +5,13 @@ const SIGN_OUT = 'auth/SIGN_OUT'
 const SET_AUTH_LOADING = 'auth/SET_AUTH_LOADING'
 const GET_TOKEN = 'GET_TOKEN'
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS'
+const GET_SHOPS = 'GET_SHOPS'
 const GET_BALANCE = 'GET_BALANCE'
 const GET_USER_DETAILS = 'GET_USER_DETAILS'
 const CONFIRM_REGISTRATION = 'CONFIRM_REGISTRATION'
 const RECEIVE_BREADCOIN = "RECEIVE_BREADCOIN"
+const TRANSFER_REQUEST_BREADCOIN = 'TRANSFER_REQUEST_BREADCOIN'
+const TRANSFER_BREADCOIN = 'TRANSFER_BREADCOIN'
 const SET_CONFIRM_REGISTRATION_ERROR = 'SET_CONFIRM_REGISTRATION_ERROR'
 const CONFIRM_CODE = 'CONFIRM_CODE'
 const AUTHORIZE_USER = 'AUTHORIZE_USER'
@@ -20,12 +23,15 @@ const initState = {
   isAuthenticated: false,
   isAuthenticating: false,
   transactions: [],
+  shops: [],
   balance: [],
 
   confirmationDetails: {},
   confirmRegistrationError: {},
   isConfirmRegistrationSuccess: false,
 
+  transferRequestBreadcoinDetails: {},
+  transferBreadcoinDetails: {},
   receiveBreadcoinDetails: {}
 }
 
@@ -43,6 +49,11 @@ export default function reducer(state = initState, action) {
     [GET_TRANSACTIONS]: () => ({
       ...state,
       transactions: payload,
+    }),
+
+    [GET_SHOPS]: () => ({
+      ...state,
+      shops: payload,
     }),
 
     [GET_BALANCE]: () => ({
@@ -99,6 +110,16 @@ export default function reducer(state = initState, action) {
     [RECEIVE_BREADCOIN]: () => ({
       ...state,
       receiveBreadcoinDetails: payload,
+    }),
+
+    [TRANSFER_REQUEST_BREADCOIN]: () => ({
+      ...state,
+      transferRequestBreadcoinDetails: payload,
+    }),
+
+    [TRANSFER_BREADCOIN]: () => ({
+      ...state,
+      transferBreadcoinDetails: payload,
     })
   }
 
@@ -118,6 +139,8 @@ export const signInAction = (responseJson) => ({ type: SIGN_IN, payload: respons
 
 export const getTransactionsAction = (responseJson) => ({ type: GET_TRANSACTIONS, payload: responseJson })
 
+export const getShopsAction = (responseJson) => ({ type: GET_SHOPS, payload: responseJson })
+
 export const getBalanceAction = (responseJson) => ({ type: GET_BALANCE, payload: responseJson })
 
 export const getUserDetailsAction = (responseJson) => ({ type: GET_USER_DETAILS, payload: responseJson })
@@ -129,6 +152,10 @@ export const setConfirmRegistrationErrorAction = (responseJson) => ({ type: SET_
 export const confirmCodeAction = (responseJson) => ({ type: CONFIRM_CODE, payload: responseJson })
 
 export const receiveBreadcoinAction = (responseJson) => ({ type: RECEIVE_BREADCOIN, payload: responseJson })
+
+export const transferRequestBreadcoinAction = (requestJson) => ({ type: TRANSFER_REQUEST_BREADCOIN, payload: requestJson })
+
+export const transferBreadcoinAction = (responseJson) => ({ type: TRANSFER_BREADCOIN, payload: responseJson })
 
 export const authorizeUserAction = () => ({ type: AUTHORIZE_USER, payload: {} })
 
@@ -290,6 +317,27 @@ export function getTransactions(userData) {
   }
 }
 
+export function getShopsInformation(userData) {
+  const { jwtToken } = userData;
+  // console.log(jwtToken);
+  // console.log(userId);
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`https://api.breadcoin.pl/api/Shop`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwtToken}` },
+      });
+      console.log(response);
+      const jsonResponse = await response.json();
+      console.log(jsonResponse);
+      dispatch(getShopsAction(jsonResponse))
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+}
+
 export function getBalance(userData) {
   const { jwtToken, id: userId } = userData;
   return async (dispatch) => {
@@ -322,21 +370,21 @@ export function sendBreadcoin(userData, breadcoinSendDetails) {
   const { jwtToken, id: userId } = userData;
   const { companyName, realCurrency } = breadcoinSendDetails;
   const companyId = ConverterUtil.convertCompanyNameToId(companyName);
-  console.log(companyName);
   return async (dispatch) => {
     try {
       const response = await fetch(`https://api.breadcoin.pl/api/Transfer/send`, {
         method: 'POST',
         body: JSON.stringify({
-          senderId: userId,
-          realCurrency: parseInt(realCurrency),
+          senderId: userId, // the user himself
+          realCurrency: parseFloat(realCurrency),
           companyId
         }),
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwtToken}` },
       })
-      console.log(response)
-      // const jsonResponse = await response.json();
-      // dispatch(confirmRegistrationAction(jsonResponse))
+      const jsonResponse = await response.json();
+      console.log(jsonResponse)
+      dispatch(transferRequestBreadcoinAction({realCurrency, companyId}))
+      dispatch(transferBreadcoinAction(jsonResponse))
     } catch (error) {
       console.log(error)
     }
@@ -352,7 +400,7 @@ export function receiveBreadcoin(userData, breadcoinReceiveDetails) {
       const response = await fetch(`https://api.breadcoin.pl/api/Transfer/receive`, {
         method: 'POST',
         body: JSON.stringify({
-          receiverId: userId,
+          receiverId: userId,  // the user himself
           code,
           companyId
         }),
@@ -369,29 +417,32 @@ export function receiveBreadcoin(userData, breadcoinReceiveDetails) {
   }
 }
 
-  // export function approveBreadcoin(userData, approveBreadcoinDetails) {
-  //   const { jwtToken, id: userId } = userData;
-  //   const { companyName, realCurrency, transferId } = approveBreadcoinDetails;
-
-  //   const companyId = ConverterUtil.convertCompanyNameToId(companyName);
-  //   return async (dispatch) => {
-  //     try {
-  //       const response = await fetch(`https://api.breadcoin.pl/api/transfer/${transferId}/approve`, {
-  //         method: 'POST',
-  //         body: JSON.stringify({
-  //           receiverId: userId,
-  //           code,
-  //           companyId
-  //         }),
-  //         headers: {'Content-Type': 'application/json', 'Authorization' : `Bearer ${jwtToken}`},
-  //       })
-  //       // TODO: appropriate error handling required
-  //       if(response.ok) {
-  //         const jsonResponse = await response.json();
-  //         dispatch(receiveBreadcoinAction(jsonResponse))
-  //       }
-  //     } catch (error){
-  //       console.log(error)
-  //     }
-  //   }
-  // }
+  export function approveBreadcoin(userData, approveBreadcoinDetails, transferRequestBreadcoinDetails) {
+    const { jwtToken, id: userId } = userData;
+    const {companyId, realCurrency } = transferRequestBreadcoinDetails;
+    const { transferId, receiverId } = approveBreadcoinDetails;
+    // const companyId = ConverterUtil.convertCompanyNameToId(companyName);
+    return async (dispatch) => {
+      try {
+        const response = await fetch(`https://api.breadcoin.pl/api/transfer/${transferId}/approve`, {
+          method: 'POST',
+          body: JSON.stringify({
+            id: transferId,
+            realCurrency,
+            // companyName,
+            // code,
+            receiverId,  // the other user
+            companyId
+          }),
+          headers: {'Content-Type': 'application/json', 'Authorization' : `Bearer ${jwtToken}`},
+        })
+        // TODO: appropriate error handling required
+        if(response.ok) {
+          const jsonResponse = await response.json();
+          dispatch(receiveBreadcoinAction(jsonResponse))
+        }
+      } catch (error){
+        console.log(error)
+      }
+    }
+  }

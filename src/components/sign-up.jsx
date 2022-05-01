@@ -221,7 +221,7 @@ export default function SignUp() {
                   color="success"
                 />
               }
-              label={'Agree to Marketing'}
+              label={'Agree to marketing'}
               color="red"
               labelPlacement="end"
             />
@@ -238,7 +238,7 @@ export default function SignUp() {
                   color="success"
                 />
               }
-              label={'Agree to Email'}
+              label={'Agree to email'}
               color="red"
               labelPlacement="end"
             />
@@ -257,7 +257,7 @@ export default function SignUp() {
                   color="success"
                 />
               }
-              label={'Agree to Gps'}
+              label={'Agree to gps'}
               color="red"
               labelPlacement="end"
             />
@@ -274,7 +274,7 @@ export default function SignUp() {
                   color="success"
                 />
               }
-              label={'Agree to Sms'}
+              label={'Agree to sms'}
               color="red"
               labelPlacement="end"
             />
@@ -288,7 +288,7 @@ export default function SignUp() {
         >
           Submit
         </Button>
-        <p className="link-to-sign-in">Already have an account? <Link to="/sign-in">Sign in</Link></p>
+        <p className="link-to-sign-in">Already have an account? <Link className="link" to="/sign-in">Sign in</Link></p>
         <Stack
           sx={{ width: '100%', height: '50px', marginTop: '10px' }}
           spacing={2}

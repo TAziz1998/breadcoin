@@ -57,7 +57,9 @@ export default function BreadcoinReceive({userData}) {
 
     // create the connection instance
     const connection = new HubConnectionBuilder()
-      .withUrl(connectionHub, options)
+      .withUrl(connectionHub, {
+        'Authorization': `Bearer ${userData.jwtToken}`
+      })
       .withHubProtocol(protocol)
       .build()
 
@@ -76,7 +78,7 @@ export default function BreadcoinReceive({userData}) {
         className="breadcoin-transfer-wrapper"
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1, width: '255px' },
         }}
         noValidate
         autoComplete="off"

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem'
 // import FacebookIcon from '@mui/icons-material/Facebook';
 import './breadcoin-transfer.scss'
 import useForm from '../hooks/useForm'
-import { sendBreadcoin }  from '../redux/reducers/user'
+import { sendBreadcoin } from '../redux/reducers/user'
 // import { HubConnection } from 'signalr-client-react'
 import {
   BrowserRouter as Router,
@@ -31,6 +31,8 @@ import { useDispatch, useSelector } from 'react-redux'
 // const signalR = require('@microsoft/signalr')
 export default function BreadcoinTransfer({ userData }) {
   const { state, handleChange, handleSwitch, handleDatePick } = useForm()
+  const [connection, setConnection] = useState(null);
+  const transferBreadcoinDetails = useSelector((state) => state.user.transferBreadcoinDetails)
   const dispatch = useDispatch()
 
   async function handleSubmit(event) {
@@ -40,35 +42,65 @@ export default function BreadcoinTransfer({ userData }) {
   }
 
   useEffect(() => {
-    const { jwtToken } = userData
-    const connectionHub = 'https://api.breadcoin.pl/api/userHub'
-    const protocol = new JsonHubProtocol()
+    console.log(userData.jwtToken);
+    const newConnection = new HubConnectionBuilder()
+      .withUrl('https://api.breadcoin.pl/api/userHub', {
+         accessTokenFactory: () => `Bearer ${userData.jwtToken}`}
+      ).build(); // .withAutomaticReconnect()
 
-    // let transport to fall back to to LongPolling if it needs to
-    const transport =
-      HttpTransportType.WebSockets | HttpTransportType.LongPolling
+      console.log(newConnection)
+    setConnection(newConnection);
+  }, []);
 
-    const options = {
-      transport,
-      logMessageContent: true,
-      logger: LogLevel.Trace,
-      Authorization: () => `Bearer ${jwtToken}`,
+  useEffect(() => {
+    if (connection) {
+      connection.start()
+        .then(result => {
+          console.log('Connected!');
+
+          // connection.on('ReceiveMessage', message => {
+          //     const updatedChat = [...latestChat.current];
+          //     updatedChat.push(message);
+
+          //     setChat(updatedChat);
+          // });
+        })
+        .catch(e => console.log('Connection failed: ', e));
     }
+  }, [connection]);
 
-    // create the connection instance
-    const connection = new HubConnectionBuilder()
-      .withUrl(connectionHub, options)
-      .withHubProtocol(protocol)
-      .build()
+  // useEffect(() => {
+  //   const { jwtToken } = userData
+  //   const connectionHub = 'https://api.breadcoin.pl/api/userHub'
+  //   const protocol = new JsonHubProtocol()
 
-    connection.on('CodeUsedNotification', onNotifReceived)
-    connection.on('TransferApprovedNotification', onNotifReceived)
-    connection.on('TransferRejectedNotification', onNotifReceived)
-  }, [])
+  //   // let transport to fall back to to LongPolling if it needs to
+  //   const transport =
+  //     HttpTransportType.WebSockets | HttpTransportType.LongPolling
 
-  const onNotifReceived = (res) => {
-    console.log('****** NOTIFICATION ******', res)
-  }
+  //   const options = {
+  //     transport,
+  //     logMessageContent: true,
+  //     logger: LogLevel.Trace,
+  //     Authorization: () => `Bearer ${jwtToken}`,
+  //   }
+
+  //   // create the connection instance
+  //   const connection = new HubConnectionBuilder()
+  //     .withUrl(connectionHub, {
+  //       'Authorization': `Bearer ${userData.jwtToken}`
+  //     })
+  //     .withHubProtocol(protocol)
+  //     .build()
+
+  //   connection.on('CodeUsedNotification', onNotifReceived)
+  //   connection.on('TransferApprovedNotification', onNotifReceived)
+  //   connection.on('TransferRejectedNotification', onNotifReceived)
+  // }, [])
+
+  // const onNotifReceived = (res) => {
+  //   console.log('****** NOTIFICATION ******', res)
+  // }
 
   return (
     <div className="breadcoin-transfer-container">
@@ -76,13 +108,13 @@ export default function BreadcoinTransfer({ userData }) {
         className="breadcoin-transfer-wrapper"
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1, width: '255px' },
         }}
         noValidate
         autoComplete="off"
       >
         <h2>Breadcoin transfer</h2>
-    <p>Please specify real currency and company name in order to proceed with breadcoin transfer.</p>
+        <p>Please specify real currency and company name in order to proceed with breadcoin transfer.</p>
         <div>
           <TextField
             size="small"
@@ -121,7 +153,7 @@ export default function BreadcoinTransfer({ userData }) {
         </div>
         <div>
           <Button
-          //  size="small"
+            //  size="small"
             type="submit"
             onClick={handleSubmit}
             className="breadcoin-transfer-button"
@@ -131,6 +163,7 @@ export default function BreadcoinTransfer({ userData }) {
           </Button>
         </div>
         <p>Are you expected to receive breadcoins? <Link to="/breadcoin-receive">Receive breadcoins</Link></p>
+        <h4>{transferBreadcoinDetails.token}</h4>
       </Box>
     </div>
   )

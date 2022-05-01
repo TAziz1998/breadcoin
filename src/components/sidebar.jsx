@@ -89,12 +89,14 @@ export default function Management() {
         </ListItemButton>
         </Link>
         
+        <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/breadcoin-shop">
         <ListItemButton>
           <ListItemIcon>
             <ShoppingBasketIcon />
           </ListItemIcon>
           <ListItemText primary="Breadcoin Shop" />
         </ListItemButton>
+        </Link>
 
         <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 1)' }} to="/edit-profile">
         <ListItemButton>

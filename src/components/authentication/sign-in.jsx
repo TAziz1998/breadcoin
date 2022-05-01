@@ -53,15 +53,17 @@ export default function SignIn() {
   >
     <h2>Sign in</h2>
     <div>
-      <TextField  name={'username'} type={'text'} value={state.username} onChange={handleChange} size="small" className="login-input" id="outlined-basic" label="Username" variant="outlined" />
+      <TextField  name={'username'} type={'text'} fullWidth value={state.username} onChange={handleChange} size="small" className="sign-in-input" id="outlined-basic" label="Username" variant="outlined" />
       </div>
       <div>
-      <TextField name={'password'} type={'password'} value={state.password} onChange={handleChange} size="small" className="login-input" id="outlined-basic" label="Password" variant="outlined" />
+      <TextField name={'password'} type={'password'} value={state.password} onChange={handleChange} size="small" className="sign-in-input" id="outlined-basic" label="Password" variant="outlined" />
       </div>
       
-      <LoadingButton fullWidth="true" loading={isLoading} type='submit' onClick={handleSubmit} className="login-button" variant="contained">Sign in</LoadingButton>
-      <p>Don't have an account yet? <Link to="/sign-up">Sign up</Link></p>
+      <LoadingButton fullWidth="true" loading={isLoading} type='submit' onClick={handleSubmit} className="sign-in-button" variant="contained">Sign in</LoadingButton>
+      <p>Don't have an account yet? <Link className="link" to="/sign-up">Sign up</Link></p>
       </Box>
       </div>
   );
 }
+
+

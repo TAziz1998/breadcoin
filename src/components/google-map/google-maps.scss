@@ -5,8 +5,13 @@
 // }
 
 .google-maps-location-icon {
-    animation: bounce .5s infinite alternate;
-    -webkit-animation: bounce .5s infinite alternate;
+    color: white;
+    background-color: rgba(75, 154, 173, 0.9);
+    border: 4px solid rgba(171, 202, 209, 1);
+    border-radius: 50%;
+    padding: 4px;
+    animation: bounce .7s infinite alternate;
+    -webkit-animation: bounce .7s infinite alternate;
     animation-timing-function: cubic-bezier(.5, 0.05, .3, .5);
 
     @keyframes bounce {
@@ -21,3 +26,4 @@
 // .MuiSvgIcon-root {
 //     color: orange;
 // }
+

@@ -78,7 +78,7 @@
       margin-top: 20px;
       text-align: center;
       font-size: 18px;
-        font-weight: 400;
+      font-weight: 400;
    }
 }
 
@@ -95,4 +95,9 @@
 .link-to-sign-in {
    width: 100%;
    text-align: center;
+}
+
+.link {
+   text-decoration: none;
+   color: #1976d2;
 }

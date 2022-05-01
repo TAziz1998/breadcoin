@@ -10,7 +10,7 @@ import Confirmation from './confirmation-component'
 import './registration-form-stepper.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../redux/reducers/user'
-import BreadcoinReceive from './breadcoin-receive'
+import BreadcoinTransfer from './breadcoin-transfer'
 import BreadcoinApprove from './breadcoin-approve'
 
 const steps = ['Receive', 'Confirmation', 'Done']
@@ -19,8 +19,8 @@ export default function BreadcoinTransferStepper({ userData }) {
   const [skipped, setSkipped] = React.useState(new Set())
   const dispatch = useDispatch()
   const childFunc = React.useRef(null)
-  const receiveBreadcoinDetails = useSelector(
-    (state) => state.user.receiveBreadcoinDetails,
+  const transferBreadcoinDetails = useSelector(
+    (state) => state.user.transferBreadcoinDetails,
   )
 
   const isStepOptional = (step) => {
@@ -34,7 +34,7 @@ export default function BreadcoinTransferStepper({ userData }) {
   async function handleNext() {
     switch (activeStep) {
       case 0:
-        if (Object.keys(receiveBreadcoinDetails).length !== 0) {
+        if (Object.keys(transferBreadcoinDetails).length !== 0) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1)
         }
         break
@@ -101,7 +101,7 @@ export default function BreadcoinTransferStepper({ userData }) {
           )
         })}
       </Stepper>
-      {activeStep == 0 && <BreadcoinReceive userData={userData} />}
+      {activeStep == 0 && <BreadcoinTransfer userData={userData} />}
       {activeStep == 1 && <BreadcoinApprove userData={userData}/>}
       {activeStep === steps.length ? (
         <React.Fragment>

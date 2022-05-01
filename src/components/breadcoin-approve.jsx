@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem'
 // import FacebookIcon from '@mui/icons-material/Facebook';
 import './breadcoin-transfer.scss'
 import useForm from '../hooks/useForm'
-import { sendBreadcoin }  from '../redux/reducers/user'
+import { approveBreadcoin }  from '../redux/reducers/user'
 // import { HubConnection } from 'signalr-client-react'
 import {
   BrowserRouter as Router,
@@ -32,11 +32,11 @@ import { useDispatch, useSelector } from 'react-redux'
 export default function BreadcoinApprove({ userData }) {
   const { state, handleChange, handleSwitch, handleDatePick } = useForm()
   const dispatch = useDispatch()
-
+  const transferRequestBreadcoinDetails = useSelector((state) => state.user.transferRequestBreadcoinDetails)
   async function handleSubmit(event) {
     // const { jwtToken } = userData
     event.preventDefault()
-    dispatch(sendBreadcoin(userData, state))
+    dispatch(approveBreadcoin(userData, state, transferRequestBreadcoinDetails))
   }
 
   useEffect(() => {
@@ -76,14 +76,26 @@ export default function BreadcoinApprove({ userData }) {
         className="breadcoin-transfer-wrapper"
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1, width: '255px' },
         }}
         noValidate
         autoComplete="off"
       >
-        <h2>Breadcoin transfer</h2>
+        <h2>Breadcoin approve</h2>
     <p>Please specify real currency and company name in order to proceed with breadcoin transfer.</p>
-        <div>
+    <div>
+          <TextField
+            size="small"
+            className="breadcoin-transfer-input"
+            id="outlined-basic"
+            label="Transfer Id"
+            variant="outlined"
+            name={'transferId'}
+            value={state.transferId}
+            onChange={handleChange}
+          />
+        </div>
+        {/* <div>
           <TextField
             size="small"
             className="breadcoin-transfer-input"
@@ -94,8 +106,9 @@ export default function BreadcoinApprove({ userData }) {
             value={state.realCurrency}
             onChange={handleChange}
           />
-        </div>
-        <div>
+        </div> */}
+        
+        {/* <div>
           <Box sx={{ width: '255px', margin: '5px auto' }} size="small">
             <FormControl size="small" fullWidth>
               <InputLabel id="demo-simple-select-label">
@@ -118,6 +131,18 @@ export default function BreadcoinApprove({ userData }) {
             </FormControl>
           </Box>
           {/* <BasicSelect/> */}
+        {/* </div>  */}
+        <div>
+          <TextField
+            size="small"
+            className="breadcoin-transfer-input"
+            id="outlined-basic"
+            label="Receiver Id"
+            variant="outlined"
+            name={'receiverId'}
+            value={state.receiverId}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <Button

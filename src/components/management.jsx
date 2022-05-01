@@ -6,9 +6,9 @@ import MapContainer from './google-map/map-container'
 import EditProfile from './edit-profile'
 import Login from './login'
 import Regulations from '../regulations'
-import BreadcoinTransfer from './breadcoin-transfer'
 import BreadcoinReceive from './breadcoin-receive'
 import BreadcoinTransferStepper from './breadcoin-transfer-stepper'
+import BreadcoinShop from './breadcoin-shop'
 import './management.scss'
 import {
   Navigate,
@@ -69,14 +69,15 @@ export default function Management() {
                 element={<TransactionHistory userData={userData} />}
               />
               <Route
-                path="/breadcoin-transfer"
-                element={<BreadcoinTransfer userData={userData} />}
+                path="/breadcoin-receive"
+                element={<BreadcoinReceive userData={userData} />}
               />
               <Route
-                path="/breadcoin-receive"
+                path="/breadcoin-transfer"
                 element={<BreadcoinTransferStepper userData={userData} />}
               />
-              <Route path="/selling-points" element={<MapContainer />} />
+              <Route path="/selling-points" element={<MapContainer userData={userData}/>} />
+              <Route path="/breadcoin-shop" element={<BreadcoinShop/>} />
               <Route
                 path="/edit-profile"
                 element={
